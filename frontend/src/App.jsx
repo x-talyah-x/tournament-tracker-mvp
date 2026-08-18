@@ -17,30 +17,37 @@ export default function App() {
     e.preventDefault();
     if (!input.trim()) return;
 
-    const res = await fetch(`${API_URL}/api/items`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: input }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/items`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: input }),
+      });
 
-    const newItem = await res.json();
-    setItems([newItem, ...items]);
-    setInput('');
+      const newItem = await res.json();
+      setItems([newItem, ...items]);
+      setInput('');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    
-      Supabase + Express + React Demo
-      
-         setInput(e.target.value)}
+    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+      <h1>Supabase + Express + React Demo</h1>
+      <form onSubmit={addItem}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="New item name..."
-        /> Add Item
-      
-      
+        />
+        <button type="submit">Add Item</button>
+      </form>
+      <ul>
         {items.map((item) => (
-          {item.name}
+          <li key={item.id}>{item.name}</li>
         ))}
-      
-    
+      </ul>
+    </div>
   );
 }
