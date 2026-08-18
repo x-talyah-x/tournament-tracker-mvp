@@ -1,10 +1,9 @@
 {
-  "name": "tournament-tracker-mvp",
+  "name": "tournament-tracker-mvp-frontend",
   "version": "1.0.0",
   "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "express": "^4.19.2"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   }
 }
