@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
+const path = require('path'); // 1. Import path
 require('dotenv').config();
 
 const app = express();
@@ -15,7 +16,7 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
-// GET Endpoint
+// API Endpoints
 app.get('/api/items', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM items ORDER BY created_at DESC');
@@ -25,7 +26,6 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
-// POST Endpoint
 app.post('/api/items', async (req, res) => {
   try {
     const { name } = req.body;
@@ -37,6 +37,14 @@ app.post('/api/items', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// 2. Serve static files from the React app build folder
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// 3. Serve index.html for any remaining routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
