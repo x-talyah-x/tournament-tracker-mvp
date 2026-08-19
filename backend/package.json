@@ -1,14 +1,17 @@
 {
   "name": "tournament-tracker-mvp",
   "version": "1.0.0",
-"scripts": {
-  "start": "node backend/index.js",
-  "build": "vite build"
-},
+  "scripts": {
+    "start": "node backend/index.js",
+    "build": "npm install && vite build"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
 }
