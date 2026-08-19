@@ -39,12 +39,12 @@ app.post('/api/items', async (req, res) => {
   }
 });
 
-// 2. Serve static files from the React app build folder
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files from the root build folder
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
-// 3. Serve index.html for any remaining routes
+// Serve index.html for single-page app routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
